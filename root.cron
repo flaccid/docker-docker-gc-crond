@@ -1,1 +1,1 @@
-0,30 * * * *	/docker-gc
+0,30 * * * *	. /etc/docker-gc.env && /docker-gc

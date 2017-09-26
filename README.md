@@ -6,7 +6,7 @@ Run docker-gc regularly under a cron job within a Docker container
 
 ### Build
 
-    $ docker build -t docker-gc-crond .
+    $ docker build -t flaccid/docker-gc-crond .
 
 ### Run
 
@@ -14,7 +14,7 @@ Inherits the usage from https://github.com/eea/docker-gc/blob/master/README.md p
 
 Typically:
 
-    $ docker run -itd -v /var/run/docker.sock:/var/run/docker.sock docker-gc-crond
+    $ docker run -itd -v /var/run/docker.sock:/var/run/docker.sock flaccid/docker-gc-crond
 
 By default `docker-gc` will run every 30 minutes.
 
@@ -22,11 +22,19 @@ By default `docker-gc` will run every 30 minutes.
 
 There should be a reasonable amount of flexibility using the available variables. If not please raise an issue so your use case can be covered!
 
-- `FOO` - bar
+- `CRON_SCHEDULE` - Defaults to `0,30 * * * *` (on the hour and half hour)
+- `LOG_TO_SYSLOG` - `0` or `1`
+- `SYSLOG_FACILITY` - Defaults to `user`
+- `SYSLOG_LEVEL` - Defaults to `info`
+- `SYSLOG_TAG` - Defaults to `docker-gc`
+- `DRY_RUN` - Defaults to `false`. Sets `DRY_RUN_CONTAINERS` and `DRY_RUN_IMAGES` in one option.
+- `DRY_RUN_CONTAINERS` - Defaults to `false`
+- `DRY_RUN_IMAGES` - Defaults to `false`
+- `EXCLUDE_IMAGES` - Space separated list of images to exclude
+- `EXCLUDE_CONTAINERS` - Space separated list of containers to exclude
 
-### Tag and Push
+### Push to Docker Hub
 
-    $ docker tag -f docker-gc-crond flaccid/docker-gc-crond
     $ docker push flaccid/docker-gc-crond
 
 License and Authors
